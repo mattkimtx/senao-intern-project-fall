@@ -1,0 +1,16 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'network/style.css' %}">
+<h1>Search Page</h1>
+<form>
+    <label for="search">Search:</label>
+    <input type="text" id="search" name="search" placeholder="Enter your search query...">
+    <input type="submit" value="Search">
+</form>
+
+
+    <!-- <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul> -->

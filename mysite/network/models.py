@@ -4,13 +4,14 @@ from django.db import models
      # subTypeNew = models.CharField(max_length=100)
      # eventID = models.CharField(max_length=100)
 maxChar = 100
+maxQuery = 100
 
 class logFileUnfiltered(models.Model):
      ## default
      # id = models.BigAutoField(primary_key=True) 
      category = models.CharField(max_length=maxChar)
      subType = models.CharField(max_length=maxChar)
-     eventID = models.CharField(max_length=maxChar, uniqute = True)
+     eventID = models.CharField(max_length=maxChar, unique = True)
      eventTitle = models.CharField(max_length=maxChar)
      priority = models.CharField(max_length=maxChar)
      source = models.CharField(max_length=maxChar)
@@ -84,3 +85,19 @@ class changeLog(models.Model):
      admin = models.CharField(max_length=maxChar)
      def __str__(self):
           return self.changeLog
+
+class TextLogs(models.Model):
+     # Haven't added yet
+     # company = models.ForeignKey(Company, on_delete=models.CASCADE)
+     category = models.CharField(max_length=maxChar)
+     subType = models.CharField(max_length=maxChar)
+     eventID = models.CharField(max_length=maxChar)
+     eventTitle = models.CharField(max_length=maxChar)
+     def __str__(self):
+          return self.eventTitle
+     
+
+class Company(models.Model):
+     name = models.CharField(max_length=maxQuery)
+     def __str__(self):
+          return self.name
