@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 #     category = models.CharField(max_length=100)
      # subTypeNew = models.CharField(max_length=100)

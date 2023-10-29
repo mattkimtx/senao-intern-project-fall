@@ -1,0 +1,7 @@
+<h1>Search</h1>
+
+<form action="{% url 'results' %}" method="get">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Search">
+</form>

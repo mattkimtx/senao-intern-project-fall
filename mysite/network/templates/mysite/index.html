@@ -1,12 +1,19 @@
 {% load static %}
-
+<!-- {% url 'polls:vote' question.id %} -->
 <link rel="stylesheet" href="{% static 'network/style.css' %}">
 <h1>Search Page</h1>
-<form>
-    <label for="search">Search:</label>
-    <input type="text" id="search" name="search" placeholder="Enter your search query...">
-    <input type="submit" value="Search">
+
+<form action="{% url 'index' %}" method="get">
+    {% csrf_token %}
+    <input type="text" name='q' placeholder="search...">
+    <button type="submit">Search</button>
 </form>
+
+<!-- <form action="/network/" method="post">
+    <label for="search">Event Title: </label>
+    <input id="search" type="text" name="search" placeholder="Enter your search query...">
+    <input type="submit" value="Search"> 
+</form> -->
 
 
     <!-- <ul>
