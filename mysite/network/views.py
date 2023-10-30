@@ -30,10 +30,10 @@ class SearchResultsView(generic.ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        return TextLogs.objects.filter(eventTitle__icontains=query)
+        return TextLogs.objects.filter(eventTitle__icontains=query).order_by('-category')
 
 
-def get_event(request):
+def findEvent(request):
     # if this is a post request
     if request.method == "GET":
         # create a form with data from request
@@ -44,8 +44,8 @@ def get_event(request):
             query = form.cleaned_data["q"]
             search_query = form.get_results(query)
             # redirect to a new URL:
-            return HttpResponseRedirect("/results/")
+            return HttpResponseRedirect("/network/index.html")
     else:
         form = SearchForm()
 
-    return render(request, "index.html", {"form": form})
+    return render(request, "network/index.html", {"form": form})

@@ -2,11 +2,15 @@
 <link rel="stylesheet" href="{% static 'network/style.css' %}">
 <h1>Search Page</h1>
 
-<form>
+<form action="/networks/results/" method="get">
     {% csrf_token %}
     <input type="text" name='q' placeholder="search...">
     <button type="submit">Search</button>
 </form>
+
+{% for TextLogs in posts %}
+    <li>{{ TextLogs.eventTitle }}</li>
+{% endfor %}
 
 <!-- <form action="/network/" method="post">
     <label for="search">Event Title: </label>
@@ -20,3 +24,12 @@
         <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
     {% endfor %}
     </ul> -->
+
+<!-- <link rel="stylesheet" href="{% static 'network/style.css' %}">
+<h1>Search Page</h1>
+
+<form action="/network/" method="POST">
+    {% csrf_token %}
+    <input type="text" name='q' placeholder="search...">
+    <button type="submit">Search</button>
+</form> -->
