@@ -1,9 +1,8 @@
 {% load static %}
-<!-- {% url 'polls:vote' question.id %} -->
 <link rel="stylesheet" href="{% static 'network/style.css' %}">
 <h1>Search Page</h1>
 
-<form action="{% url 'index' %}" method="get">
+<form>
     {% csrf_token %}
     <input type="text" name='q' placeholder="search...">
     <button type="submit">Search</button>

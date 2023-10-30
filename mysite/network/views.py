@@ -19,13 +19,13 @@ from .forms import SearchForm
 
 class IndexView(generic.ListView):
     model = TextLogs
-    template_name = "index.html"
+    template_name = "network/index.html"
     queryset=TextLogs.objects.all()
     context_object_name = "posts"
     
 class SearchResultsView(generic.ListView):
     model = TextLogs
-    template_name = "index.html"
+    template_name = "network/index.html"
     context_object_name = "posts"
 
     def get_queryset(self):
@@ -33,19 +33,19 @@ class SearchResultsView(generic.ListView):
         return TextLogs.objects.filter(eventTitle__icontains=query)
 
 
-# def get_event(request):
-#     # if this is a post request
-#     if request.method == "GET":
-#         # create a form with data from request
-#         form = SearchForm(request.POST)
-#         # check if valid
-#         if form.is_valid():
-#             # get the data
-#             query = form.cleaned_data["q"]
-#             search_query = form.get_results(query)
-#             # redirect to a new URL:
-#             return HttpResponseRedirect("/results/")
-#     else:
-#         form = SearchForm()
+def get_event(request):
+    # if this is a post request
+    if request.method == "GET":
+        # create a form with data from request
+        form = SearchForm(request.POST)
+        # check if valid
+        if form.is_valid():
+            # get the data
+            query = form.cleaned_data["q"]
+            search_query = form.get_results(query)
+            # redirect to a new URL:
+            return HttpResponseRedirect("/results/")
+    else:
+        form = SearchForm()
 
-#     return render(request, "network/templates/mysite/index.html", {"form": form})
+    return render(request, "index.html", {"form": form})
