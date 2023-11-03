@@ -10,24 +10,29 @@ from .models import TextLogs, Company
 from .forms import SearchForm
 
 class IndexView(generic.ListView):
-    model = TextLogs
-    template_name = "network/index.html"
-    queryset=TextLogs.objects.all()
+    cloudlog = get_all_rows("cloudlog") # don't need queryset because cloudlog is a dictionary (i think, not 100% positive)
+    queryset = cloudlog
+    template_name = "network/index.html" 
     context_object_name = "posts"
+
     
 class SearchResultsView(generic.ListView):
-    model = TextLogs
+    cloudlog = get_all_rows("cloudlog")
+    queryset = cloudlog
     template_name = "network/index.html"
     context_object_name = "posts"
 
     def get_queryset(self):
+        objects = []
+        cloudlog = get_all_rows("cloudlog")
         query = self.request.GET.get('q')
-        objects = TextLogs.objects.filter(eventTitle__contains=query).order_by('-category')
+        for event in cloudlog:
+            objects.append(event)
         return objects
 
-def searchEvents(request):
-    if request.method == "POST":
-        searched = request.POST['q']
+# def searchEvents(request):
+#     if request.method == "POST":
+#         searched = request.POST['q']
 
 # def findEvent(request):
 #     # if this is a post request

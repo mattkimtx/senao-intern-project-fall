@@ -14,8 +14,8 @@
 {% block content %}
 {% if posts %}
     <ul>
-    {% for text in posts %}
-        <h4>{{ text.eventTitle }}</h4>
+    {% for row in posts %}
+        <h4>{{ row.eventTitle }}</h4>
     {% endfor %}
     </ul>
 {% else %}
