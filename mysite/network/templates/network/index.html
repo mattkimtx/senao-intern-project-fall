@@ -1,5 +1,6 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'network/style.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'network/style.css' %}"> -->
+
 
 <h1>Search Device Log</h1>
 
@@ -8,6 +9,23 @@
     <input type="text" name='q' placeholder="search...">
     <button type="submit">Search</button>
 </form>
+
+<!-- <div id="cover">
+    <form action="/network/results/" method="get">
+        {% csrf_token %}
+        <div class="tb">
+            <div class="td">
+                <input type="text" name='q' placeholder="search..." required>
+            </div>
+            <div class="td" id="s-cover">
+            <button type="submit">
+                <div id="s-circle"></div>
+                <span></span>
+            </button>
+            </div>
+        </div>
+    </form>
+</div> -->
 
 <h2>Results</h2>
 
