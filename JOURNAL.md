@@ -22,4 +22,7 @@ Each entry will be formatted by date, work done, and a short description.
 - Did not come to the office today, had a test at NTU.
 
 ### 11/3/23
-- Today, I am working on using Google Sheets as my database in Django. I have used this [video](https://www.youtube.com/watch?v=XXDiqE4t0xA&ab_channel=TomDekan) and [website](https://www.photondesigner.com/articles/django-with-google-sheets-database?ref=yt-XXDiqE4t0xA-django-with-google-sheets-database) as references for source code. In my code, I have created a new file called ".env" and another new file called "services.py" that essentially acts as helpers for accessing google sheets and authenticating my queries.
+- Today, I am working on using Google Sheets as my database in Django. I have used this [video](https://www.youtube.com/watch?v=XXDiqE4t0xA&ab_channel=TomDekan) and [website](https://www.photondesigner.com/articles/django-with-google-sheets-database?ref=yt-XXDiqE4t0xA-django-with-google-sheets-database) as references for source code. In my code, I have created a new file called ".env" and another new file called "services.py" that essentially acts as helpers for accessing Google Sheets and authenticating my queries. At the end of the day, I successfully connected Django wtih Google Sheets to query the network packet data!
+
+### 11/10/13
+- Back to the office after being sick with a cold or flu. I my goal today is to continue making the search bar and the website look better!
