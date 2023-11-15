@@ -125,6 +125,3 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# GSHEETS = {
-#     'CLIENT_SECRETS': '</Users/matthewkim/SenaoNetworks/client_secret_1019349139858-8vj26mj5q27mcluoqb2jju3sbfg5hqin.apps.googleusercontent.com>'
-# }

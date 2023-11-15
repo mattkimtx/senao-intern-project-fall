@@ -26,6 +26,29 @@ class SearchResultsView(generic.ListView):
         objects = []
         cloudlog = get_all_rows("cloudlog")
         query = self.request.GET.get('q')
-        for query in cloudlog:
-            objects.append(query)
+        for event in cloudlog:
+            value = event.get("eventTitle")
+            if query in value or query == value:
+                objects.append(event)
         return objects
+
+# def searchevents(request):
+#     if request.method == "post":
+#         searched = request.post['q']
+
+# def findevent(request):
+#     # if this is a post request
+#     if request.method == "get":
+#         # create a form with data from request
+#         form = searchform(request.post)
+#         # check if valid
+#         if form.is_valid():
+#             # get the data
+#             query = form.cleaned_data["q"]
+#             search_query = form.get_results(query)
+#             # redirect to a new URL:
+#             return HttpResponseRedirect("/network/index.html")
+#     else:
+#         form = SearchForm()
+
+#     return render(request, "network/index.html", {"form": form})

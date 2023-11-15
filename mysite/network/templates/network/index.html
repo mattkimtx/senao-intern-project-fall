@@ -33,7 +33,18 @@
 {% if posts %}
     <ul>
     {% for row in posts %}
-        <h4>{{ row.eventTitle }}</h4>
+        <div class="row">
+            <div class="column">
+                <h2>header1</h2>
+                <!-- <p>{{ row.eventTitle }}</p> -->
+                <p>test</p>
+            </div> 
+            <div class="column">
+                <h2>header2</h2>
+                <!-- <p>{{ row }}</p> -->
+                <p>test</p>
+            </div> 
+        </div>
     {% endfor %}
     </ul>
 {% else %}
