@@ -10,41 +10,14 @@
     <button type="submit">Search</button>
 </form>
 
-<!-- <div id="cover">
-    <form action="/network/results/" method="get">
-        {% csrf_token %}
-        <div class="tb">
-            <div class="td">
-                <input type="text" name='q' placeholder="search..." required>
-            </div>
-            <div class="td" id="s-cover">
-            <button type="submit">
-                <div id="s-circle"></div>
-                <span></span>
-            </button>
-            </div>
-        </div>
-    </form>
-</div> -->
-
 <h2>Results</h2>
 
 {% block content %}
 {% if posts %}
     <ul>
     {% for row in posts %}
-        <div class="row">
-            <div class="column">
-                <h2>header1</h2>
-                <!-- <p>{{ row.eventTitle }}</p> -->
-                <p>test</p>
-            </div> 
-            <div class="column">
-                <h2>header2</h2>
-                <!-- <p>{{ row }}</p> -->
-                <p>test</p>
-            </div> 
-        </div>
+                <p>{{ row.eventTitle }}</p>
+                <p>{{ row }}</p>
     {% endfor %}
     </ul>
 {% else %}

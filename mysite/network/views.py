@@ -5,17 +5,19 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from .services import get_all_rows
-
 from .models import TextLogs, Company
 from .forms import SearchForm
 
+# queryset is not limited to single row, it will be used to display all rows in the database
 class IndexView(generic.ListView):
-    cloudlog = get_all_rows("cloudlog") # don't need queryset because cloudlog is a dictionary (i think, not 100% positive)
+    # cloudlog is a list of dictionaries, each dictionary holds data for each event
+    cloudlog = get_all_rows("cloudlog")
+    # identify queryset
     queryset = cloudlog
     template_name = "network/index.html" 
     context_object_name = "posts"
-
     
+# limit queryset to search box input, will show only rows that match the search query
 class SearchResultsView(generic.ListView):
     cloudlog = get_all_rows("cloudlog")
     queryset = cloudlog
@@ -26,29 +28,9 @@ class SearchResultsView(generic.ListView):
         objects = []
         cloudlog = get_all_rows("cloudlog")
         query = self.request.GET.get('q')
+        # search for events that match in cloud log. Only matches beginning from first character in string, will not identify matches in part of the string.
         for event in cloudlog:
             value = event.get("eventTitle")
             if query in value or query == value:
                 objects.append(event)
         return objects
-
-# def searchevents(request):
-#     if request.method == "post":
-#         searched = request.post['q']
-
-# def findevent(request):
-#     # if this is a post request
-#     if request.method == "get":
-#         # create a form with data from request
-#         form = searchform(request.post)
-#         # check if valid
-#         if form.is_valid():
-#             # get the data
-#             query = form.cleaned_data["q"]
-#             search_query = form.get_results(query)
-#             # redirect to a new URL:
-#             return HttpResponseRedirect("/network/index.html")
-#     else:
-#         form = SearchForm()
-
-#     return render(request, "network/index.html", {"form": form})
