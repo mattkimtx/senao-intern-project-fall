@@ -1,0 +1,29 @@
+# Workflow to deploy code to AWS EC2 instance
+
+name: Deploy EC2
+
+# trigger workflow when push request is made to main branch
+on:
+  push:
+    branches: [ "test" ]
+  # can run workflow manually from action's tab
+  workflow_dispatch:
+
+jobs:
+  # Deploy to EC2 Instance
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      # connect to EC2
+      - name: connect to EC2 instance
+        id: connect
+        run: |
+          ssh -i ${{ secrets.EC2 }} ec2-user@${{ secrets.IP }}
+          exit
+      # Test if successful
+      - name: Create artifact of test coverage
+        if: steps.connect.outcome == 'success'
+        run: |
+          echo "success"
