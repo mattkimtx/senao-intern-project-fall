@@ -21,7 +21,7 @@ jobs:
         id: connect
         run: |
           touch key.txt
-          echo ${{ secrets.EC2 }} > key.txt
+          echo "${{ secrets.EC2 }}" > key.txt
           ssh -i key.txt ubuntu@${{ secrets.IP }}
           exit 0
           rm key.txt
