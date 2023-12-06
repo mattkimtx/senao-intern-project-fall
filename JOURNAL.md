@@ -14,3 +14,18 @@ Each entry will be formatted by date, work done, and a short description.
 - 
 
 ### 9/22/23
+
+### 10/30/23
+- Today, I solved my issue with my .html files not found, and the reason was that I had created an additional directory for each of my .html pages to live in. I had copied what the tutorial had done, but I did not realize that adding another layer to the path would affect referencing my .html templates in the views.py file. Luckily, my search bar and page work! I watched two YouTube videos, https://www.youtube.com/watch?v=AGtae4L5BbI&ab_channel=Codemy.com and https://www.youtube.com/watch?v=VL5ZNCjXEbw&ab_channel=codepiep in order to create the page and the buttons.
+
+### 11/1/23
+- Did not come to the office today, had a test at NTU.
+
+### 11/3/23
+- Today, I am working on using Google Sheets as my database in Django. I have used this [video](https://www.youtube.com/watch?v=XXDiqE4t0xA&ab_channel=TomDekan) and [website](https://www.photondesigner.com/articles/django-with-google-sheets-database?ref=yt-XXDiqE4t0xA-django-with-google-sheets-database) as references for source code. In my code, I have created a new file called ".env" and another new file called "services.py" that essentially acts as helpers for accessing Google Sheets and authenticating my queries. At the end of the day, I successfully connected Django wtih Google Sheets to query the network packet data!
+
+### 11/10/13
+- Back to the office after being sick with a cold or flu. My goal today is to continue making the search bar and the website look better!
+
+### 11/15/23
+- Second to last day in the office before my short break! I am preparing my presentation to give to the rest of the team on Friday. Yay!
