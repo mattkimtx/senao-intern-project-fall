@@ -1,0 +1,26 @@
+{% load static %}
+<!-- <link rel="stylesheet" href="{% static 'network/style.css' %}"> -->
+
+
+<h1>Search Device Log</h1>
+
+<form action="/network/results/" method="get">
+    {% csrf_token %}
+    <input type="text" name='q' placeholder="search...">
+    <button type="submit">Search</button>
+</form>
+
+<h2>Results</h2>
+
+{% block content %}
+{% if posts %}
+    <ul>
+    {% for row in posts %}
+                <p>{{ row.eventTitle }}</p>
+                <p>{{ row }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Event Does Not Exist... Try Again</p>
+{% endif %}
+{% endblock %}
