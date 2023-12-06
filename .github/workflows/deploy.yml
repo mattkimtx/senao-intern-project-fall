@@ -20,8 +20,7 @@ jobs:
       - name: connect to EC2 instance
         id: connect
         run: |
-          KEY = ${{ secrets.EC2 }}
-          echo "${KEY}" | grep -qw "less" | ssh -q -i /dev/stdin ubuntu@${{ secrets.IP }}
+          echo ${{ secrets.EC2 }} | grep -qw "less" | ssh -q -i /dev/stdin ubuntu@${{ secrets.IP }}
           exit 0
       # Test if successful
       - name: Create artifact of test coverage
