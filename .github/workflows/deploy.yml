@@ -20,7 +20,7 @@ jobs:
       - name: connect to EC2 instance
         id: connect
         run: |
-          ssh -i ${{ secrets.EC2 }} ec2-user@${{ secrets.IP }}
+          ssh -i ${{ secrets.EC2 }} ubuntu@${{ secrets.IP }}
           exit
       # Test if successful
       - name: Create artifact of test coverage
