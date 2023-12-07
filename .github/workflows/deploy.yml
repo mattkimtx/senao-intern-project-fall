@@ -1,33 +1,42 @@
 # Workflow to deploy code to AWS EC2 instance
+name: Deploy to AWS EC2
 
-name: Deploy EC2
-
-# trigger workflow when push request is made to main branch
 on:
   push:
-    branches: [ "test" ]
-  # can run workflow manually from action's tab
-  workflow_dispatch:
+    branches:
+      - test  # or your preferred branch
 
 jobs:
-  # Deploy to EC2 Instance
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-      # connect to EC2
-      - name: connect to EC2 instance
-        id: connect
-        shell: bash
-        run: |
-          touch key.pem
-          echo "${{ secrets.EC2 }}" > key.pem
-          ssh -tt -i key.pem ubuntu@${{ secrets.IP }}
-          exit 0
-          rm key.pem
-      # Test if successful
-      - name: Create artifact of test coverage
-        if: steps.connect.outcome == 'success'
-        run: |
-          echo "success"
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10.12'  # Specify your Python version
+
+    - name: Install Dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Test
+      run: |
+        # Add commands to run your tests
+
+    - name: Deploy to AWS EC2
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2 }}
+        HOST: ${{ secrets.HOST }}
+        USER: ${{ secrets.USER }}
+        TARGET: ${{ secrets.TARGET }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y sshpass
+        ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+        sshpass -e scp -o StrictHostKeyChecking=no -r . $USER@$HOST:$TARGET
+        sshpass -e ssh -o StrictHostKeyChecking=no $USER@$HOST 'cd $TARGET && python3 manage.py migrate'
+
