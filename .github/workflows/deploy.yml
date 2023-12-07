@@ -24,7 +24,6 @@ jobs:
           touch key.pem
           echo "${{ secrets.EC2 }}" > key.pem
           ssh -tt -i key.pem ubuntu@${{ secrets.IP }}
-          yes
           exit 0
           rm key.pem
       # Test if successful
