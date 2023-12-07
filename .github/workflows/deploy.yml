@@ -44,18 +44,18 @@ jobs:
         scp -o StrictHostKeyChecking=no -r $(pwd)/* $USER@$HOST:$TARGET
     
         # Execute commands on EC2 instance
-        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
-          cd $TARGET
-          cd /mysite
-          # Activate virtual environment
-          source vemysite/bin/activate
-          # Run database migrations
-          python3 manage.py migrate
-          # Collect static files
-          python3 manage.py collectstatic --noinput
-          # Restart the web server (assuming you're using Gunicorn)
-          # sudo systemctl restart gunicorn
-          # Or, alternatively, run Django's development server (not recommended for production)
-          python manage.py runserver 0.0.0.0:8000
-        ENDSSH
+        # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+        #   cd $TARGET
+        #   cd /mysite
+        #   # Activate virtual environment
+        #   source vemysite/bin/activate
+        #   # Run database migrations
+        #   python3 manage.py migrate
+        #   # Collect static files
+        #   python3 manage.py collectstatic --noinput
+        #   # Restart the web server (assuming you're using Gunicorn)
+        #   # sudo systemctl restart gunicorn
+        #   # Or, alternatively, run Django's development server (not recommended for production)
+        #   python manage.py runserver # 0.0.0.0:8000
+        # ENDSSH
 
