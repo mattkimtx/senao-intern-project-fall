@@ -41,7 +41,7 @@ jobs:
         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
     
         # Copy files to EC2 instance
-        scp -o StrictHostKeyChecking=no -r . $USER@$HOST:$TARGET
+        scp -o StrictHostKeyChecking=no -r $(pwd)/* $USER@$HOST:$TARGET
     
         # Execute commands on EC2 instance
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
