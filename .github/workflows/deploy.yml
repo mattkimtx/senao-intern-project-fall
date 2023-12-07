@@ -45,20 +45,20 @@ jobs:
         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
     
         # Copy files to EC2 instance
-        scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET/$ZIP_NAME
+        scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
     
         # Execute commands on EC2 instance
-        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
-          cd $TARGET
-          # Ensure unzip is installed
-          # sudo apt-get update && sudo apt-get install -y unzip
+        # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+        #   cd $TARGET
+        #   # Ensure unzip is installed
+        #   # sudo apt-get update && sudo apt-get install -y unzip
 
-          # Unzip the project files
-          if [ -f $ZIP_NAME ]; then
-              unzip $ZIP_NAME && rm $ZIP_NAME # Remove the zip file after extraction
-          else
-              echo "Zip file not found."
-          fi
+        #   # Unzip the project files
+        #   if [ -f $ZIP_NAME ]; then
+        #       unzip $ZIP_NAME && rm $ZIP_NAME # Remove the zip file after extraction
+        #   else
+        #       echo "Zip file not found."
+        #   fi
 
         #   # Activate virtual environment
         #   source vemysite/bin/activate
