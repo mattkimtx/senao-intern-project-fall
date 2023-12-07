@@ -4,7 +4,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - test  # or your preferred branch
+      - test 
 
 jobs:
   build-and-deploy:
@@ -70,6 +70,6 @@ jobs:
         #   # sudo systemctl restart gunicorn
         #   # Or, alternatively, run Django's development server (not recommended for production)
         #   python manage.py runserver # 0.0.0.0:8000
-        
+
         # ENDSSH
 
