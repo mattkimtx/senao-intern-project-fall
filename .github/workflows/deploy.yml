@@ -33,10 +33,10 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USER: ${{ secrets.USER }}
         TARGET: ${{ secrets.TARGET }}
-        # ZIP_NAME: 'deployment_package.zip'
+        ZIP_NAME: 'deployment_package.zip'
       run: |
         # Zip the project files
-        zip -r 'deployment_package.zip' .
+        zip -r $ZIP_NAME .
 
         # Setup SSH key
         mkdir -p ~/.ssh
@@ -45,20 +45,20 @@ jobs:
         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
     
         # Copy files to EC2 instance
-        scp -o StrictHostKeyChecking=no 'deployment_package.zip' $USER@$HOST:$TARGET
+        scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
     
-        # Execute commands on EC2 instance
-        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
-          cd $TARGET
-          # Ensure unzip is installed
-          # sudo apt-get update && sudo apt-get install -y unzip
+        # # Execute commands on EC2 instance
+        # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+        #   cd $TARGET
+        #   # Ensure unzip is installed
+        #   # sudo apt-get update && sudo apt-get install -y unzip
 
-          # Unzip the project files
-          if [ -f 'deployment_package.zip' ]; then
-              unzip 'deployment_package.zip' && rm 'deployment_package.zip' # Remove the zip file after extraction
-          else
-              echo "Zip file not found."
-          fi
+        #   # Unzip the project files
+        #   if [ -f 'deployment_package.zip' ]; then
+        #       unzip 'deployment_package.zip' && rm 'deployment_package.zip' # Remove the zip file after extraction
+        #   else
+        #       echo "Zip file not found."
+        #   fi
 
         #   # Activate virtual environment
         #   source vemysite/bin/activate
