@@ -33,7 +33,11 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USER: ${{ secrets.USER }}
         TARGET: ${{ secrets.TARGET }}
+        ZIP_NAME: 'deployment_package.zip'
       run: |
+        # Zip the project files
+        zip -r $ZIP_NAME $(pwd)/*
+
         # Setup SSH key
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
@@ -41,12 +45,16 @@ jobs:
         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
     
         # Copy files to EC2 instance
-        scp -o StrictHostKeyChecking=no -r $(pwd)/* $USER@$HOST:$TARGET
+        scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
     
         # Execute commands on EC2 instance
-        # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
-        #   cd $TARGET
-        #   cd /mysite
+        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+          cd $TARGET
+          # Unzip the project files
+          unzip $ZIP_NAME
+          # Remove the zip file after extraction
+          rm $ZIP_NAME
+
         #   # Activate virtual environment
         #   source vemysite/bin/activate
         #   # Run database migrations
@@ -57,5 +65,5 @@ jobs:
         #   # sudo systemctl restart gunicorn
         #   # Or, alternatively, run Django's development server (not recommended for production)
         #   python manage.py runserver # 0.0.0.0:8000
-        # ENDSSH
+        ENDSSH
 
