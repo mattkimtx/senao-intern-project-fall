@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       # connect to EC2
       - name: connect to EC2 instance
         id: connect
@@ -23,7 +23,7 @@ jobs:
         run: |
           touch key.txt
           echo "${{ secrets.EC2 }}" > key.txt
-          ssh -i /usr/key.txt ubuntu@${{ secrets.IP }}
+          ssh -tt -i key.txt ubuntu@${{ secrets.IP }}
           exit 0
           rm key.txt
       # Test if successful
