@@ -36,7 +36,7 @@ jobs:
         ZIP_NAME: 'deployment_package.zip'
       run: |
         # Zip the project files
-        zip -r $ZIP_NAME .
+        zip -r $ZIP_NAME ./*
 
         # Setup SSH key
         mkdir -p ~/.ssh
