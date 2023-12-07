@@ -21,11 +21,11 @@ jobs:
         id: connect
         shell: bash
         run: |
-          touch key.txt
-          echo "${{ secrets.EC2 }}" > key.txt
-          ssh -tt -i key.txt ubuntu@${{ secrets.IP }}
+          touch key.pem
+          echo "${{ secrets.EC2 }}" > key.pem
+          ssh -tt -i key.pem ubuntu@${{ secrets.IP }}
           exit 0
-          rm key.txt
+          rm key.pem
       # Test if successful
       - name: Create artifact of test coverage
         if: steps.connect.outcome == 'success'
