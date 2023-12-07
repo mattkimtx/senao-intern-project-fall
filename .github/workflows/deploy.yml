@@ -33,8 +33,10 @@ jobs:
         HOST: ${{ secrets.HOST }}
         USER: ${{ secrets.USER }}
         TARGET: ${{ secrets.TARGET }}
+      run: | 
+        # define Zip name
         ZIP_NAME: 'deployment_package.zip'
-      run: |
+
         # Zip the project files
         zip -r $ZIP_NAME $(pwd)/*
 
@@ -45,7 +47,7 @@ jobs:
         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
     
         # Copy files to EC2 instance
-        scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
+        scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET/$ZIP_NAME
     
         # Execute commands on EC2 instance
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
