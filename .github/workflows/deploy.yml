@@ -34,24 +34,28 @@ jobs:
         USER: ${{ secrets.USER }}
         TARGET: ${{ secrets.TARGET }}
       run: |
+        # Setup SSH key
         mkdir -p ~/.ssh
-        touch ~/.ssh/known_hosts
-        ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        sshpass -e scp -o StrictHostKeyChecking=no -r . $USER@$HOST:$TARGET
-        sshpass -e ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+        ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+    
+        # Copy files to EC2 instance
+        scp -o StrictHostKeyChecking=no -r . $USER@$HOST:$TARGET
+    
+        # Execute commands on EC2 instance
+        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
           cd $TARGET
-          cd mysite
+          cd /mysite
           # Activate virtual environment
           source vemysite/bin/activate
           # Run database migrations
-          python manage.py migrate
+          python3 manage.py migrate
           # Collect static files
-          python manage.py collectstatic --noinput
+          python3 manage.py collectstatic --noinput
           # Restart the web server (assuming you're using Gunicorn)
           # sudo systemctl restart gunicorn
           # Or, alternatively, run Django's development server (not recommended for production)
-          python manage.py runserver
+          python manage.py runserver 0.0.0.0:8000
         ENDSSH
 
