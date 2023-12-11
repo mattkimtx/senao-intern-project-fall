@@ -56,18 +56,18 @@ jobs:
             echo "Zip file not found."
         fi
 
-  #       # Activate virtual environment
-  #       cd mysite
-  #       # for consol log
-  #       pwd
-  #       source vemysite/bin/activate
+        # Activate virtual environment
+        cd mysite
+        # for consol log
+        pwd
+        source vemysite/bin/activate
 
-  #       # Run database migrations
-  #       python3 manage.py migrate
-  #       # start server
-  #       python3 manage.py runserver 35.160.162.164:8000
+        # # Run database migrations
+        # python3 manage.py migrate
+        # # start server
+        # python3 manage.py runserver 35.160.162.164:8000
 
-  #       ENDSSH
+        ENDSSH
   
   # test-connection:
   #   needs: build-and-deploy
