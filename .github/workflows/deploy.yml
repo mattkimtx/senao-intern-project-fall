@@ -73,7 +73,17 @@ jobs:
         python3 manage.py runserver
 
         ENDSSH
-    
+  test-connection:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10.12'  # Specify your Python version
     - name: http request
       run: |
         # use curl to sent http request
