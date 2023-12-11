@@ -59,29 +59,29 @@ jobs:
         # Activate virtual environment
         cd mysite
         source vemysite/bin/activate
+
         # Run database migrations
         python3 manage.py migrate
-        # Collect static files
-        python3 manage.py collectstatic --noinput
-        # Restart the web server (assuming you're using Gunicorn)
-        # sudo systemctl restart gunicorn
-        # Or, alternatively, run Django's development server (not recommended for production)
-        python manage.py runserver # 0.0.0.0:8000
+        # start server
+        python manage.py runserver 35.160.162.164:8000
 
         ENDSSH
+  
+  test-connection:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if Website is Reachable
+      env:
+        HOST: ${{ secrets.HOST }}
+      run: |
+        # use curl to sent http request
+        response=$(curl --silent --head --fail $HOST)
 
-    # - name: Check if Website is Reachable
-    #   needs: Deploy
-    #   env:
-    #     HOST: ${{ secrets.HOST }}
-    #   run: |
-    #     # use curl to sent http request
-    #     response=$(curl --silent --head --fail $HOST)
-
-    #     # Check the exit status of the curl command
-    #     if [ $? -eq 0 ]; then
-    #         echo "Website is reachable."
-    #     else
-    #         echo "Website is not reachable."
-    #     fi
-      
+        # Check the exit status of the curl command
+        if [ $? -eq 0 ]; then
+            echo "Website is reachable."
+        else
+            echo "Website is not reachable."
+        fi
+        
