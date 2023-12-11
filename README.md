@@ -6,3 +6,6 @@ Description of work at Senao Networks
 
 ### Fall Sept '23 - Nov '23
 - Created a website application using Django to query network packet information from a database. For my example, I created a Google Sheets and connected the Google Sheets to Django using Google's Google Sheets API.
+
+
+1.0
