@@ -52,7 +52,7 @@ jobs:
 
         #   # Unzip the project files
         if [ -f 'deployment_package.zip' ]; then
-            unzip -o /home/ubuntu/deployment_package.zip
+            sudo unzip -o /home/ubuntu/deployment_package.zip
         else
             echo "Zip file not found."
         fi
