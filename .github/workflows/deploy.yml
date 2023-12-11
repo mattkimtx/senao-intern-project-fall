@@ -78,7 +78,7 @@ jobs:
         HOST: ${{ secrets.HOST }}
       run: |
         # use curl to sent http request
-        response=$(curl --silent --head --fail $HOST)
+        response=$(curl --silent --head --fail '$HOST':8000/network/)
 
         # Check the exit status of the curl command
         if [ $? -eq 0 ]; then
