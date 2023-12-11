@@ -46,16 +46,16 @@ jobs:
         # # Execute commands on EC2 instance
         # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
-        #   cd $TARGET # not sure if you need this ***
-        #   # Ensure unzip is installed
-        #   # sudo apt-get update && sudo apt-get install -y unzip
+        cd $TARGET
+        # Ensure unzip is installed
+        # sudo apt-get update && sudo apt-get install -y unzip
 
         #   # Unzip the project files
-          if [ -f 'deployment_package.zip' ]; then
-              unzip -f 'deployment_package.zip'
-          else
-              echo "Zip file not found."
-          fi
+        if [ -f 'deployment_package.zip' ]; then
+            unzip -f 'deployment_package.zip'
+        else
+            echo "Zip file not found."
+        fi
 
         #   # Activate virtual environment
         #   source vemysite/bin/activate
