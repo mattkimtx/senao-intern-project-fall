@@ -46,13 +46,13 @@ jobs:
         # # Execute commands on EC2 instance
         # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
-        cd $TARGET
+        # cd $TARGET
         # Ensure unzip is installed
         # sudo apt-get update && sudo apt-get install -y unzip
 
         #   # Unzip the project files
         if [ -f 'deployment_package.zip' ]; then
-            unzip -f 'deployment_package.zip'
+            unzip -o 'deployment_package.zip'
         else
             echo "Zip file not found."
         fi
