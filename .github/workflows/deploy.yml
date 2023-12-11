@@ -65,7 +65,7 @@ jobs:
         # Run database migrations
         python3 manage.py migrate
         # start server
-        python manage.py runserver 35.160.162.164:8000
+        python3 manage.py runserver 35.160.162.164:8000
 
         ENDSSH
   
