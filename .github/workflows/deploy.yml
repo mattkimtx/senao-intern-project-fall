@@ -48,13 +48,15 @@ jobs:
 
         # cd $TARGET
         # Ensure unzip is installed
-        # sudo apt-get update && sudo apt-get install -y unzip
+        sudo apt-get update && sudo apt-get install -y unzip
 
         #   # Unzip the project files
         if [ -f /home/ubuntu/deployment_package.zip ]; then
             unzip -o /home/ubuntu/deployment_package.zip
         else
             echo "Zip file not found."
+            echo pwd
+            echo ls
         fi
 
         #   # Activate virtual environment
