@@ -19,10 +19,6 @@ jobs:
       with:
         python-version: '3.10.12'  # Specify your Python version
 
-    # - name: Install Dependencies
-    #   run: |
-    #     pip install -r requirements.txt
-
     - name: Test
       run: |
         # Add commands to run your tests
@@ -49,16 +45,17 @@ jobs:
     
         # # Execute commands on EC2 instance
         # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
-        #   cd $TARGET
+
+        #   cd $TARGET # not sure if you need this ***
         #   # Ensure unzip is installed
         #   # sudo apt-get update && sudo apt-get install -y unzip
 
         #   # Unzip the project files
-        #   if [ -f 'deployment_package.zip' ]; then
-        #       unzip 'deployment_package.zip' && rm 'deployment_package.zip' # Remove the zip file after extraction
-        #   else
-        #       echo "Zip file not found."
-        #   fi
+          if [ -f 'deployment_package.zip' ]; then
+              unzip -f 'deployment_package.zip'
+          else
+              echo "Zip file not found."
+          fi
 
         #   # Activate virtual environment
         #   source vemysite/bin/activate
@@ -73,3 +70,17 @@ jobs:
 
         # ENDSSH
 
+    # - name: Check if Website is Reachable
+    #   env:
+    #     HOST: ${{ secrets.HOST }}
+    #   run: |
+    #     # use curl to sent http request
+    #     response=$(curl --silent --head --fail $HOST)
+
+    #     # Check the exit status of the curl command
+    #     if [ $? -eq 0 ]; then
+    #         echo "Website is reachable."
+    #     else
+    #         echo "Website is not reachable."
+    #     fi
+      
