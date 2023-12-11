@@ -51,8 +51,8 @@ jobs:
         # sudo apt-get update && sudo apt-get install -y unzip
 
         #   # Unzip the project files
-        if [ -f 'deployment_package.zip' ]; then
-            sudo unzip -o /home/ubuntu/deployment_package.zip
+        if [ -f /home/ubuntu/deployment_package.zip ]; then
+            unzip -o /home/ubuntu/deployment_package.zip
         else
             echo "Zip file not found."
         fi
