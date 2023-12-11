@@ -23,7 +23,7 @@ jobs:
       run: |
         # Add commands to run your tests
 
-    - name: Deploy to AWS EC2
+    - name: Deploy
       env:
         SSH_PRIVATE_KEY: ${{ secrets.EC2 }}
         HOST: ${{ secrets.HOST }}
@@ -55,8 +55,8 @@ jobs:
             unzip -o /home/ubuntu/deployment_package.zip
         else
             echo "Zip file not found."
-            echo pwd
-            echo ls
+            pwd
+            ls
         fi
 
         #   # Activate virtual environment
@@ -73,6 +73,7 @@ jobs:
         # ENDSSH
 
     # - name: Check if Website is Reachable
+    #   needs: Deploy
     #   env:
     #     HOST: ${{ secrets.HOST }}
     #   run: |
