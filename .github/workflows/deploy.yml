@@ -46,7 +46,6 @@ jobs:
         # # Execute commands on EC2 instance
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
-        # cd $TARGET
         # Ensure unzip is installed
         sudo apt-get update && sudo apt-get install -y unzip
 
@@ -55,20 +54,19 @@ jobs:
             unzip -o deployment_package.zip
         else
             echo "Zip file not found."
-            pwd
-            ls
         fi
 
-        #   # Activate virtual environment
-        #   source vemysite/bin/activate
-        #   # Run database migrations
-        #   python3 manage.py migrate
-        #   # Collect static files
-        #   python3 manage.py collectstatic --noinput
-        #   # Restart the web server (assuming you're using Gunicorn)
-        #   # sudo systemctl restart gunicorn
-        #   # Or, alternatively, run Django's development server (not recommended for production)
-        #   python manage.py runserver # 0.0.0.0:8000
+        # Activate virtual environment
+        cd mysite
+        source vemysite/bin/activate
+        # Run database migrations
+        python3 manage.py migrate
+        # Collect static files
+        python3 manage.py collectstatic --noinput
+        # Restart the web server (assuming you're using Gunicorn)
+        # sudo systemctl restart gunicorn
+        # Or, alternatively, run Django's development server (not recommended for production)
+        python manage.py runserver # 0.0.0.0:8000
 
         ENDSSH
 
