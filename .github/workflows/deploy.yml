@@ -44,16 +44,15 @@ jobs:
         scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
     
         # # Execute commands on EC2 instance
-        # ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
         # cd $TARGET
         # Ensure unzip is installed
         sudo apt-get update && sudo apt-get install -y unzip
 
         # Unzip the project files
-        path='/home/runner/work/senao-intern-project/senao-intern-project'
-        if [ -f '$path'/deployment_package.zip ]; then
-            unzip -o '$path'/deployment_package.zip
+        if [ -f deployment_package.zip ]; then
+            unzip -o deployment_package.zip
         else
             echo "Zip file not found."
             pwd
@@ -71,7 +70,7 @@ jobs:
         #   # Or, alternatively, run Django's development server (not recommended for production)
         #   python manage.py runserver # 0.0.0.0:8000
 
-        # ENDSSH
+        ENDSSH
 
     # - name: Check if Website is Reachable
     #   needs: Deploy
