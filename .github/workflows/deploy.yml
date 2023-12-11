@@ -51,8 +51,9 @@ jobs:
         sudo apt-get update && sudo apt-get install -y unzip
 
         #   # Unzip the project files
-        if [ -f /home/ubuntu/deployment_package.zip ]; then
-            unzip -o /home/ubuntu/deployment_package.zip
+        path = '/home/runner/work/senao-intern-project/senao-intern-project'
+        if [ -f '$path'/deployment_package.zip ]; then
+            unzip -o '$path'/deployment_package.zip
         else
             echo "Zip file not found."
             pwd
