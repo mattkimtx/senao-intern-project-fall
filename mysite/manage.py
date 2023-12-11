@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/ubuntu/mysite/vemysite python
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
