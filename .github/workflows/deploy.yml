@@ -58,6 +58,8 @@ jobs:
 
         # Activate virtual environment
         cd mysite
+        # for consol log
+        pwd
         source vemysite/bin/activate
 
         # Run database migrations
