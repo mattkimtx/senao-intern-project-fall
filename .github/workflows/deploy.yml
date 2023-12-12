@@ -4,7 +4,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - GitHubAction
+      - GitHub-Actions
 
 jobs:
   build-and-deploy:
