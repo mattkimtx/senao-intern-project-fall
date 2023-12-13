@@ -31,7 +31,8 @@ jobs:
         ZIP_NAME: 'deployment_package.zip'
       run: |
         # Zip the project files
-        zip -r $ZIP_NAME .
+        zip -r $ZIP_NAME . -x vemysite
+        zip -r vemysite.zip ./vemysite
 
         # Setup SSH key
         mkdir -p ~/.ssh
@@ -41,6 +42,7 @@ jobs:
     
         # Copy files to EC2 instance
         scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
+        scp -o StrictHostKeyChecking=no vemysite.zip $USER@$HOST:$TARGET
     
         # # Execute commands on EC2 instance
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
