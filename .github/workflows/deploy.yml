@@ -73,7 +73,7 @@ jobs:
         # Run database migrations
         python3 manage.py migrate
         # start server, nohup makes sure the server stays running
-        nohup python3 manage.py runserver 0.0.0.0:8000
+        python3 manage.py runserver 0.0.0.0:8000
 
         ENDSSH
   test-connection:
