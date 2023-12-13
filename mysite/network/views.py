@@ -7,7 +7,7 @@ from django.views import generic
 from .services import get_all_rows
 from .models import TextLogs, Company
 from .forms import SearchForm
-from .mango_db import get_database
+from .mongo_db import get_database
 from dotenv import load_dotenv
 
 load_dotenv()
