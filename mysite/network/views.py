@@ -1,12 +1,26 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.http import HttpResponseRedirect
-# from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from .services import get_all_rows
 from .models import TextLogs, Company
 from .forms import SearchForm
+from .mango_db import get_database
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def my_view(request):
+    db = get_database()
+    collection = db.cloud6_intern
+
+    # Perform operations, e.g., find, insert
+    data = collection.find_one({"key": "value"})
+
+    # Process and return response
+    return render(request, 'data_display.html', {'data': data})
 
 # queryset is not limited to single row, it will be used to display all rows in the database
 class IndexView(generic.ListView):
