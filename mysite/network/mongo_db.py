@@ -1,5 +1,8 @@
 from pymongo import MongoClient
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_database():
     # Provide the mongodb atlas url to connect python to mongodb using pymongo
@@ -9,4 +12,4 @@ def get_database():
     client = MongoClient(CONNECTION_STRING)
 
     # Create the database for our example (we will use the same database throughout the tutorial
-    return client['your_database_name']
+    return client['cloud6_intern']

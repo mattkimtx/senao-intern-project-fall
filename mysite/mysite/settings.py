@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 
 # Have to add allowed ip address hosts to this list
-ALLOWED_HOSTS = ['localhost','35.160.162.164']
+ALLOWED_HOSTS = ['localhost','35.160.162.164', '127.0.0.1']
 
 
 # Application definition
