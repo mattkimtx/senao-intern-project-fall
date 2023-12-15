@@ -41,8 +41,7 @@ jobs:
     
         # Copy files to EC2 instance
         scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
-        scp -o StrictHostKeyChecking=no vemysite.zip $USER@$HOST:$TARGET
-    
+
         # # Execute commands on EC2 instance
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
@@ -88,8 +87,6 @@ jobs:
         # go to folder
         cd mysite
 
-        # Run database migrations
-        python3 manage.py migrate
         # start server, nohup makes sure the server stays running
         nohup python3 manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1 &
 
