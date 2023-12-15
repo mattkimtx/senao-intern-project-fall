@@ -31,8 +31,7 @@ jobs:
         ZIP_NAME: 'deployment_package.zip'
       run: |
         # Zip the project files
-        zip -r $ZIP_NAME . # -x vemysite
-        zip -r vemysite.zip ./vemysite
+        zip -r $ZIP_NAME . 
 
         # Setup SSH key
         mkdir -p ~/.ssh
@@ -83,9 +82,11 @@ jobs:
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
         # Activate virtual environment
+        source ./myenv/bin/activate
+        pip install -r requirements.txt
+
+        # go to folder
         cd mysite
-        pwd # for consol log
-        source ./vemysite/bin/activate
 
         # Run database migrations
         python3 manage.py migrate
