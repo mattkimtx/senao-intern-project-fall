@@ -1,8 +1,37 @@
+{% load static %}
 <!-- data_display.html -->
-<html>
-<head><title>Data Display</title></head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'network/data_display.css' %}">
+    <title>MongoDB Data Query</title>
+</head>
 <body>
-    <h1>Data</h1>
-    <p>{{ data }}</p>
+    <header>
+        <form action="/network/dbresults" method="get">
+            {% csrf_token %}
+            <input type="text" id="searchBar" name='q1' placeholder="type in database...">
+            <button class="submit">Find Collections</button>
+        </form>
+        <!-- <button class="submit">Find Collection</button>
+        <button class="submit">Find File</button> -->
+    </header>
 </body>
-</html>
+
+{% block content %}
+{% if all_data %}
+    <ul>
+    {% if database %}
+        <h3 id="database">Database: {{ database }}</h3>
+    {% endif %}
+    <h4>Collection items</h4>
+    {% for data in all_data %}
+        <li>{{ data }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Data Does Not Exist... Try Again</p>
+{% endif %}
+</div>
+{% endblock %}
