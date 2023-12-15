@@ -67,12 +67,16 @@ def mongo_dbs(request):
         all_db = client.list_database_names()
         all_data = []
         database = ""
+        collection = ""
 
-        # if this query runs
-        query = request.GET.get('q1')
-        if query:
+        # list of all possible queries
+        dbQuery = request.GET.get('q1')
+        clQuery = request.GET.get('q2')
+
+
+        if dbQuery:
             for db in all_db:
-                if db in query or query == db:
+                if db in dbQuery or dbQuery == db:
                     database = db
                     collectionDB = client[db]
                     all_data = collectionDB.list_collection_names()
@@ -80,6 +84,7 @@ def mongo_dbs(request):
         client.close()
 
         return render(request, 'network/data_display.html', {'database' : database,
+                                                             'collection' : collection,
                                                              'all_data' : all_data,
                                                              })
     
