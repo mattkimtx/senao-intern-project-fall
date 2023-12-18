@@ -5,14 +5,29 @@
 </head>
 
 <header>
-    <h1>Insert into Mongo</h1>
-    <p> Please insert document in this format "database collection name age grade" </p>
-    <form action="/network/insert/" method="get">
-        {% csrf_token %}
-        <input type="text" id="searchBar" name='q' placeholder="insert...">
-        <button type="submit">Insert Document</button>
-    </form>
+    <h1>Mongo Create, Update, Delete</h1>
 </header>
+
+<p> Please insert document in this format: "database collection name age grade"</p>
+<form action="/network/insert/" method="get">
+    {% csrf_token %}
+    <input type="text" id="searchBar" name='q' placeholder="type...">
+    <button type="submit">Insert Document</button>
+</form>
+
+<p> Please update document (only 1) in this format "database collection name new_age new_grade"</p>
+<form action="/network/insert/" method="get">
+    {% csrf_token %}
+    <input type="text" id="searchBar" name='update1' placeholder="type...">
+    <button type="submit">Update Document</button>
+</form>
+
+<p> Please delete document (only 1) in this format "database collection name age grade"</p>
+<form action="/network/insert/" method="get">
+    {% csrf_token %}
+    <input type="text" id="searchBar" name='delete1' placeholder="type...">
+    <button type="submit">Delete Document</button>
+</form>
 
 <a href="/network/mongodb/" class="redirect-button">Query MongoDB</a>
 <a href="/network/" class="redirect-button">Google Sheets Query</a>

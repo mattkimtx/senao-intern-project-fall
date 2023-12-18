@@ -106,6 +106,7 @@ def mongo_dbs(request):
         raise Http404("No data found")
         # return render(request, 'network/error.html', {'error_message': str(e)})
 
+
 def mongo_insert(request):
     try:
         secret = os.environ.get("CONNECTION_STRING")
@@ -113,6 +114,9 @@ def mongo_insert(request):
         inserted = []
 
         input = request.GET.get('q')
+        update = request.GET.get('update1')
+        delete = request.GET.get('delete1')
+
         if input:
             doc = input.split(" ")
             # database is first part
@@ -123,9 +127,44 @@ def mongo_insert(request):
             collection.insert_one({"name": doc[2], "age": doc[3], "grade": doc[4]})
             # variable to return to website
             inserted = doc
+        
+        elif update:
+            doc = update.split(" ")
+            # database is first part
+            database = doc[0]
+            # collection is second part
+            collection = client[database][doc[1]]
+            # insert document into collection
+            collection.findAndModify( 
+                {
+                    "query": {"name": doc[2]},
+                    "update": {"$set": {"age": doc[3], "grade": doc[4]}},
+                    }
+                )
+            # variable to return to website
+            inserted = doc
+        
+        elif delete:
+            doc = delete.split(" ")
+            # database is first part
+            database = doc[0]
+            # collection is second part
+            collection = client[database][doc[1]]
+            # insert document into collection
+            # collection.findAndModify( 
+            #     {
+            #         "query": {"name": doc[2], "age": doc[3], "grade": doc[4]},
+            #         "remove": True
+            #         }
+            #     )
+            collection.deleteOne( {"name": doc[2], "age": doc[3], "grade": doc[4]} )
+            # variable to return to website
+            inserted = doc
+
         client.close()
 
         return render(request, 'network/insert.html', {'inserted' : inserted,})
     except Exception as e:
         # Handle exceptions (e.g., connection errors)
-        raise Http404("No data found")
+        # raise Http404("No data found")
+        return render(request, 'network/error.html', {'error_message': str(e)})
