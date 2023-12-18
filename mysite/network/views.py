@@ -57,7 +57,8 @@ def my_view(request):
     
     except Exception as e:
         # Handle exceptions (e.g., connection errors)
-        return render(request, 'network/error.html', {'error_message': str(e)})
+        raise Http404("No data found")
+        # return render(request, 'network/error.html', {'error_message': str(e)})
 
 def mongo_dbs(request):
     try:
@@ -73,14 +74,25 @@ def mongo_dbs(request):
         dbQuery = request.GET.get('q1')
         clQuery = request.GET.get('q2')
 
-
+        # Query database, collection, or file
+        # shows all collections in database
         if dbQuery:
             for db in all_db:
                 if db in dbQuery or dbQuery == db:
                     database = db
                     collectionDB = client[db]
                     all_data = collectionDB.list_collection_names()
-        # Close the MongoDB connection
+        # shows all documents in collection
+        if clQuery:
+            for db in all_db:
+                for cl in client[db].list_collection_names():
+                    if cl in clQuery or clQuery == cl:
+                        collection = cl
+                        # query by name
+                        documentCL = client[db][cl].find({}, {"_id": 1, "name": 1})
+                        for doc in documentCL:
+                            all_data.append(doc)
+        # close mongoDB connection
         client.close()
 
         return render(request, 'network/data_display.html', {'database' : database,
@@ -90,4 +102,5 @@ def mongo_dbs(request):
     
     except Exception as e:
         # Handle exceptions (e.g., connection errors)
-        return render(request, 'network/error.html', {'error_message': str(e)})
+        raise Http404("No data found")
+        # return render(request, 'network/error.html', {'error_message': str(e)})
