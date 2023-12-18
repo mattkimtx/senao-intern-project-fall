@@ -1,0 +1,33 @@
+{% load static %}
+<head>
+    <title>CRUD Commands</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'network/style.css' %}">
+</head>
+
+<header>
+    <h1>Insert into Mongo</h1>
+    <p> Please insert document in this format "database collection name age grade" </p>
+    <form action="/network/insert/" method="get">
+        {% csrf_token %}
+        <input type="text" id="searchBar" name='q' placeholder="insert...">
+        <button type="submit">Insert Document</button>
+    </form>
+</header>
+
+<a href="/network/mongodb/" class="redirect-button">Query MongoDB</a>
+<a href="/network/" class="redirect-button">Google Sheets Query</a>
+
+<h2 id="results">Results</h2>
+<div id="resultsContainer">
+{% block content %}
+{% if inserted %}
+    <ul>
+    {% for field in inserted %}
+                <p>{{ field }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Failed to upload... Try Again</p>
+{% endif %}
+</div>
+{% endblock %}

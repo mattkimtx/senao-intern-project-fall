@@ -61,6 +61,7 @@ def my_view(request):
         # return render(request, 'network/error.html', {'error_message': str(e)})
 
 def mongo_dbs(request):
+
     try:
         # Connect to the MongoDB server
         secret = os.environ.get("CONNECTION_STRING")
@@ -104,3 +105,27 @@ def mongo_dbs(request):
         # Handle exceptions (e.g., connection errors)
         raise Http404("No data found")
         # return render(request, 'network/error.html', {'error_message': str(e)})
+
+def mongo_insert(request):
+    try:
+        secret = os.environ.get("CONNECTION_STRING")
+        client = MongoClient(host=secret, directconnection=True)
+        inserted = []
+
+        input = request.GET.get('q')
+        if input:
+            doc = input.split(" ")
+            # database is first part
+            database = doc[0]
+            # collection is second part
+            collection = client[database][doc[1]]
+            # insert document into collection
+            collection.insert_one({"name": doc[2], "age": doc[3], "grade": doc[4]})
+            # variable to return to website
+            inserted = doc
+        client.close()
+
+        return render(request, 'network/insert.html', {'inserted' : inserted,})
+    except Exception as e:
+        # Handle exceptions (e.g., connection errors)
+        raise Http404("No data found")

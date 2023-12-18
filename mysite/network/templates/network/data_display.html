@@ -12,6 +12,7 @@
     <h1 class="title">QUERY DATA</h1> 
     <div class="form-container">
         <a href="/network/" class="next">Go To Google Sheets Query</a>
+        <a href="/network/insert" class="next">Go To CRUD Commands</a>
         <!-- Querying data from Mongo -->
         <form action="/network/dbresults" method="get">
             {% csrf_token %}
@@ -24,20 +25,7 @@
             <button class="submit">Find Collection</button>
         </form>
     </div>
-    <!-- <h1 class="title">CRUD COMMANDS</h1>
-    <header id="CRUD">
-        <form action="/network/dbresults" method="push">
-            {% csrf_token %}
-            <input type="text" id="searchBar" name='q1' placeholder="type in database...">
-            <button class="submit">Find Database</button>
-        </form>
-        <form action="/network/dbresults" method="push">
-            {% csrf_token %}
-            <input type="text" id="searchBar" name='q2' placeholder="type in collection...">
-            <button class="submit">Find Collection</button>
-        </form>
-    </header> -->
-    
+
     {% block content %}
     {% if all_data %}
         <ul>
