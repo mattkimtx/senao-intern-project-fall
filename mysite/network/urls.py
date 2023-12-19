@@ -7,6 +7,6 @@ urlpatterns = [
     path("results/", views.SearchResultsView.as_view(), name="results"),
     path("mongodb/", views.my_view, name="mongo"),
     path("dbresults/", views.mongo_dbs, name="dbresults"),
-    path("insert/", views.mongo_insert, name="insert"),
+    path("crud/", views.crud, name="crud"),
 ]
 

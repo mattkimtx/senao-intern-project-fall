@@ -4,15 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'network/data_display.css' %}">
+    <link rel="stylesheet" href="{% static 'network/style.css' %}">
     <title>MongoDB Data Query</title>
 </head>
 
-<body>
+<header> 
     <h1 class="title">QUERY DATA</h1> 
+</header>
+
+<body>
     <div class="form-container">
         <a href="/network/" class="next">Go To Google Sheets Query</a>
-        <a href="/network/insert" class="next">Go To CRUD Commands</a>
+        <a href="/network/crud" class="next">Go To CRUD Commands</a>
         <!-- Querying data from Mongo -->
         <form action="/network/dbresults" method="get">
             {% csrf_token %}
