@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("network/", include("network.urls")), # new
+    path("network/", include("network.urls")), # network app
+    path("login/", include("login.urls")), # login app
     path("admin/", admin.site.urls),
 ]
