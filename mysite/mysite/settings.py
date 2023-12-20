@@ -37,7 +37,7 @@ ALLOWED_HOSTS = ['localhost','35.160.162.164', '127.0.0.1', '35.165.140.135']
 
 INSTALLED_APPS = [
     "network",
-    "login",
+    "account",
     "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
