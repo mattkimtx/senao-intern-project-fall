@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from django.http import JsonResponse
-from mongo import user_exists, create_account, verify
+from .mongo import user_exists, create_account, verify
 from datetime import datetime
 import json
 import re
