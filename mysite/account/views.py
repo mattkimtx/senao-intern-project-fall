@@ -9,9 +9,9 @@ import re
 @csrf_exempt
 def signup(request):
     json_data = user_signup(request)
-    return JsonResponse(json_data)
+    return json_data
 
 @csrf_exempt
 def login(request):
     json_data = user_login(request)
-    return JsonResponse(json_data)
+    return json_data
