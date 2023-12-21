@@ -106,7 +106,6 @@ def mongo_dbs(request):
         raise Http404("No data found")
         # return render(request, 'network/error.html', {'error_message': str(e)})
 
-
 def crud(request):
     try:
         secret = os.environ.get("CONNECTION_STRING")
