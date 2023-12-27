@@ -1,12 +1,7 @@
-from typing import Any
-from django.db.models.query import QuerySet
-from django.http import HttpResponseRedirect, Http404
+from django.http import Http404
 from django.shortcuts import render
-from django.urls import reverse
 from django.views import generic
 from .services import get_all_rows
-from .models import TextLogs, Company
-from .forms import SearchForm
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
