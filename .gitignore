@@ -1,7 +1,15 @@
 # ignore files related to API keys
 .env
 *.env
+
+# ignore files related to virtual environment
 myenv/
+
+# ignore files related to macOS
 .DS_Store
+
+# ignore files related to Python
 __pycache__/
+
+# ignore files related to SQLite
 db.sqlite3

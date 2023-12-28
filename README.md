@@ -1,10 +1,47 @@
-# Senao Networks Project
-Description of work at Senao Networks
+# USING API
 
-### Winter Dec '23 - Feb '24
-- Week 1: Learning how to use GitHub Action to learn CI/CD principles and deploy my previous fall Django project to an AWS EC2 server.
+To use the Create User API, you must send a JSON payload with an HTTP request ("POST"). Here is an example of a Create User script using Python.
 
-### Fall Sept '23 - Nov '23
-- Created a website application using Django to query network packet information from a database. For my example, I created a Google Sheets and connected the Google Sheets to Django using Google's Google Sheets API.
+```
+import requests
+import json
 
-1.0
+# url link
+url = "http://127.0.0.1:8000/account/signup/"
+
+# example user
+payload = json.dumps({
+  "username": "matthew",
+  "password": "aA12345678"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+```
+
+To Login in using the API, you must send a JSON payload with an HTTP request ("GET"). Here is an example of a Login script using Python
+
+```
+import requests
+import json
+
+# url link
+url = "http://127.0.0.1:8000/account/signup/"
+
+# example user
+payload = json.dumps({
+  "username": "matthew",
+  "password": "aA12345678"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+```
