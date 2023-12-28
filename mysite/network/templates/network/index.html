@@ -1,17 +1,22 @@
 {% load static %}
-<!-- <link rel="stylesheet" href="{% static 'network/style.css' %}"> -->
+<head>
+    <title>Network Package Search</title>
+    <link rel="stylesheet" href="{% static 'network/style.css' %}">
+</head>
+<!-- <script src="{% static '/network/script.js' %}"></script> -->
 
 
-<h1>Search Device Log</h1>
+<header>
+    <h1>Search Device Log</h1>
+    <form action="/network/results/" method="get">
+        {% csrf_token %}
+        <input type="text" id="searchBar" name='q' placeholder="search...">
+        <button type="submit">Search</button>
+    </form>
+</header>
 
-<form action="/network/results/" method="get">
-    {% csrf_token %}
-    <input type="text" name='q' placeholder="search...">
-    <button type="submit">Search</button>
-</form>
-
-<h2>Results</h2>
-
+<h2 id="results">Results</h2>
+<div id="resultsContainer">
 {% block content %}
 {% if posts %}
     <ul>
@@ -23,4 +28,5 @@
 {% else %}
     <p>Event Does Not Exist... Try Again</p>
 {% endif %}
+</div>
 {% endblock %}

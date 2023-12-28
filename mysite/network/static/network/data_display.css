@@ -1,0 +1,34 @@
+body {
+     background-color: #c3f8cc; /* Deep Green Background */
+     font-family: Arial, sans-serif;
+     text-align: left;
+ }
+ 
+ header {
+     /* background-color: #333; */
+     color: white;
+     padding: 1em 0;
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+}
+ 
+.submit {
+     background-color: #ff5252; /* Red Button Background */
+     color: #fff;
+     font-size: 12px;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+ }
+ 
+.submit:hover {
+     background-color: #ff0000; /* Darker Red Button Background on Hover */
+ }
+ 
+ #database {
+     color: black;
+     text-align: left;
+   }

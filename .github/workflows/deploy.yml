@@ -1,5 +1,110 @@
 # Workflow to deploy code to AWS EC2 instance
 
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - SCB-167
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12.1'
+    
+    - name: Install SSH Client
+      run: sudo apt-get install openssh-client
+
+    - name: Deploy
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2 }}
+        HOST: ${{ secrets.HOST }}
+        USER: ${{ secrets.USER }}
+        TARGET: ${{ secrets.TARGET }}
+        ZIP_NAME: 'deployment_package.zip'
+      run: |
+        # Zip the project files
+        zip -r $ZIP_NAME . # -x vemysite
+        zip -r vemysite.zip ./vemysite
+
+        # Setup SSH key
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+    
+        # Copy files to EC2 instance
+        scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
+        scp -o StrictHostKeyChecking=no vemysite.zip $USER@$HOST:$TARGET
+    
+        # # Execute commands on EC2 instance
+        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+
+        # Ensure unzip is installed
+        sudo apt-get update && sudo apt-get install -y unzip
+
+        # Unzip the project files
+        if [ -f deployment_package.zip ]; then
+            unzip -o deployment_package.zip
+        else
+            echo "Zip file not found."
+        fi
+
+        ENDSSH
+
+    - name: Start Server
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.EC2 }}
+        HOST: ${{ secrets.HOST }}
+        USER: ${{ secrets.USER }}
+      run: |
+        ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
+
+        # Activate virtual environment
+        cd mysite
+        pwd # for consol log
+        source ./vemysite/bin/activate
+
+        # Run database migrations
+        python3 manage.py migrate
+        # start server, nohup makes sure the server stays running
+        nohup python3 manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1 &
+
+        ENDSSH
+
+  test-connection:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10.12'  # Specify your Python version
+    - name: http request
+      run: |
+        # use curl to sent http request to EC2
+        response=$(curl --silent --head --fail 'http://35.160.162.164:8000/network')
+
+        # Check the exit status of the curl command
+        if [ $? -eq 0 ]; then
+            echo "Website is reachable."
+        else
+            echo "Website is not reachable."
+        fi
+=======
+
 name: Deploy EC2
 
 # trigger workflow when push request is made to main branch
@@ -27,3 +132,4 @@ jobs:
         if: steps.connect.outcome == 'success'
         run: |
           echo "success"
+
