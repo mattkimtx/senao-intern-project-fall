@@ -1,3 +1,22 @@
 # ignore files related to API keys
 .env
 *.env
+<<<<<<< HEAD
+myenv/
+.DS_Store
+__pycache__/
+db.sqlite3
+=======
+
+# ignore files related to virtual environment
+myenv/
+
+# ignore extra file related to 
+.DS_Store/
+
+# ignore files related to python
+__pycache__/
+
+# ignore default Django database
+db.sqlite3
+>>>>>>> refs/remotes/origin/SCB-181

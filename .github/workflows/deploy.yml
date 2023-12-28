@@ -4,7 +4,11 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - SCB-168
+<<<<<<< HEAD
+      - SCB-181
+=======
+      - main
+>>>>>>> refs/remotes/origin/SCB-181
 
 jobs:
   build-and-deploy:
@@ -57,7 +61,7 @@ jobs:
 
         ENDSSH
 
-    - name: Start Server
+    - name: Build Docker Image
       env:
         SSH_PRIVATE_KEY: ${{ secrets.EC2 }}
         HOST: ${{ secrets.HOST }}

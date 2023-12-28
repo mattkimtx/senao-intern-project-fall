@@ -2,6 +2,9 @@ import os
 import gspread
 from typing import List
 from django.conf import settings
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def initialize_gspread() -> gspread.client.Client:
   """
