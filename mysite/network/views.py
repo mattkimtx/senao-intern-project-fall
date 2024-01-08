@@ -1,12 +1,7 @@
-from typing import Any
-from django.db.models.query import QuerySet
-from django.http import HttpResponseRedirect
+from django.http import Http404
 from django.shortcuts import render
-from django.urls import reverse
 from django.views import generic
 from .services import get_all_rows
-from .models import TextLogs, Company
-from .forms import SearchForm
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
@@ -105,7 +100,6 @@ def mongo_dbs(request):
         # Handle exceptions (e.g., connection errors)
         raise Http404("No data found")
         # return render(request, 'network/error.html', {'error_message': str(e)})
-
 
 def crud(request):
     try:

@@ -37,6 +37,8 @@ ALLOWED_HOSTS = ['localhost','35.160.162.164', '127.0.0.1', '35.165.140.135']
 
 INSTALLED_APPS = [
     "network",
+    "account",
+    "rest_framework",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -85,8 +87,6 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 #         "NAME": "mydatabase",
 #     }
 # }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
