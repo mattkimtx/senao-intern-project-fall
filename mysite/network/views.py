@@ -1,12 +1,7 @@
-from typing import Any
-from django.db.models.query import QuerySet
-from django.http import HttpResponseRedirect
+from django.http import Http404
 from django.shortcuts import render
-from django.urls import reverse
 from django.views import generic
 from .services import get_all_rows
-from .models import TextLogs, Company
-from .forms import SearchForm
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
@@ -61,6 +56,7 @@ def my_view(request):
         # return render(request, 'network/error.html', {'error_message': str(e)})
 
 def mongo_dbs(request):
+
     try:
         # Connect to the MongoDB server
         secret = os.environ.get("CONNECTION_STRING")
@@ -104,3 +100,59 @@ def mongo_dbs(request):
         # Handle exceptions (e.g., connection errors)
         raise Http404("No data found")
         # return render(request, 'network/error.html', {'error_message': str(e)})
+
+def crud(request):
+    try:
+        secret = os.environ.get("CONNECTION_STRING")
+        client = MongoClient(host=secret, directconnection=True)
+        inserted = []
+
+        input = request.GET.get('q')
+        update = request.GET.get('update1')
+        delete = request.GET.get('delete1')
+
+        if input:
+            doc = input.split(" ")
+            # database is first part
+            database = doc[0]
+            # collection is second part
+            collection = client[database][doc[1]]
+            # insert document into collection
+            collection.insert_one({"name": doc[2], "age": doc[3], "ID": doc[4]})
+            # variable to return to website
+            inserted = doc
+        
+        elif update:
+            doc = update.split(" ")
+            # database is first part
+            database = doc[0]
+            # collection is second part
+            collection = client[database][doc[1]]
+            # update one document in collection
+            collection.update_one( 
+                {
+                    "query": {"ID": doc[4]},
+                    "update": {"$set": {"name": doc[2], "age": doc[3]}},
+                    }
+                )
+            # variable to return to website
+            inserted = doc
+        
+        elif delete:
+            doc = delete.split(" ")
+            # database is first part
+            database = doc[0]
+            # collection is second part
+            collection = client[database][doc[1]]
+            # delete document from collection
+            collection.delete_one( {"name": doc[2], "age": doc[3], "ID": doc[4]} )
+            # variable to return to website
+            inserted = doc
+
+        client.close()
+
+        return render(request, 'network/crud.html', {'inserted' : inserted,})
+    except Exception as e:
+        # Handle exceptions (e.g., connection errors)
+        # raise Http404("No data found")
+        return render(request, 'network/error.html', {'error_message': str(e)})

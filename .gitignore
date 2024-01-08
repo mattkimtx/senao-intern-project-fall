@@ -1,3 +1,7 @@
 # ignore files related to API keys
 .env
 *.env
+myenv/
+.DS_Store
+__pycache__/
+db.sqlite3
