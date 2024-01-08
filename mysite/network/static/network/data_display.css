@@ -1,16 +1,43 @@
 body {
-     background-color: #c3f8cc; /* Deep Green Background */
+     background-color: #a9dab1; /* Deep Green Background */
      font-family: Arial, sans-serif;
      text-align: left;
- }
+}
  
- header {
-     /* background-color: #333; */
-     color: white;
+header {
+     background-color: #333;
+     color: black;
      padding: 1em 0;
      display: flex;
      justify-content: space-around;
-     align-items: center;
+     align-items: flex-start;
+}
+ 
+.form-container {
+     display: flex;
+     flex-direction: column; /* Stack forms vertically */
+     align-items: flex-start; /* Align forms to the left */
+}
+ 
+/* Add spacing between forms if needed */
+.form-container form {
+     margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.next {
+     background-color: #007bff;
+     color: #fff;
+     font-size: 16px;
+     padding: 10px 20px;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+}
+   
+/* Hover effect */
+.next:hover {
+     background-color: #0056b3;
 }
  
 .submit {
@@ -22,13 +49,8 @@ body {
      border-radius: 5px;
      cursor: pointer;
      transition: background-color 0.3s ease;
- }
+}
  
 .submit:hover {
      background-color: #ff0000; /* Darker Red Button Background on Hover */
- }
- 
- #database {
-     color: black;
-     text-align: left;
-   }
+}

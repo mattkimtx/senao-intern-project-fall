@@ -7,31 +7,56 @@
     <link rel="stylesheet" href="{% static 'network/data_display.css' %}">
     <title>MongoDB Data Query</title>
 </head>
+
 <body>
-    <header>
+    <h1 class="title">QUERY DATA</h1> 
+    <div class="form-container">
+        <a href="/network/" class="next">Go To Google Sheets Query</a>
+        <!-- Querying data from Mongo -->
         <form action="/network/dbresults" method="get">
             {% csrf_token %}
             <input type="text" id="searchBar" name='q1' placeholder="type in database...">
-            <button class="submit">Find Collections</button>
+            <button class="submit">Find Database</button>
         </form>
-        <!-- <button class="submit">Find Collection</button>
-        <button class="submit">Find File</button> -->
-    </header>
-</body>
-
-{% block content %}
-{% if all_data %}
-    <ul>
-    {% if database %}
-        <h3 id="database">Database: {{ database }}</h3>
+        <form action="/network/dbresults" method="get">
+            {% csrf_token %}
+            <input type="text" id="searchBar" name='q2' placeholder="type in collection...">
+            <button class="submit">Find Collection</button>
+        </form>
+    </div>
+    <!-- <h1 class="title">CRUD COMMANDS</h1>
+    <header id="CRUD">
+        <form action="/network/dbresults" method="push">
+            {% csrf_token %}
+            <input type="text" id="searchBar" name='q1' placeholder="type in database...">
+            <button class="submit">Find Database</button>
+        </form>
+        <form action="/network/dbresults" method="push">
+            {% csrf_token %}
+            <input type="text" id="searchBar" name='q2' placeholder="type in collection...">
+            <button class="submit">Find Collection</button>
+        </form>
+    </header> -->
+    
+    {% block content %}
+    {% if all_data %}
+        <ul>
+        {% if database %}
+            <h3 id="database">Database: {{ database }}</h3>
+            <h4>Collections</h4>
+        {% endif %}
+        {% if collection %}
+            <h3 id="collection">Collection: {{ collection }}</h3>
+            <h4>Documents (ID, name)</h4>
+        {% endif %}
+    
+        {% for data in all_data %}
+            <li>{{ data }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Data Does Not Exist... Try Again</p>
     {% endif %}
-    <h4>Collection items</h4>
-    {% for data in all_data %}
-        <li>{{ data }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Data Does Not Exist... Try Again</p>
-{% endif %}
-</div>
-{% endblock %}
+    </div>
+    {% endblock %}
+</body>

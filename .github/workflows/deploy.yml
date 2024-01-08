@@ -5,7 +5,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - SCB-167
+      - SCB-168
 
 jobs:
   build-and-deploy:
@@ -32,8 +32,7 @@ jobs:
         ZIP_NAME: 'deployment_package.zip'
       run: |
         # Zip the project files
-        zip -r $ZIP_NAME . # -x vemysite
-        zip -r vemysite.zip ./vemysite
+        zip -r $ZIP_NAME . 
 
         # Setup SSH key
         mkdir -p ~/.ssh
@@ -43,8 +42,7 @@ jobs:
     
         # Copy files to EC2 instance
         scp -o StrictHostKeyChecking=no $ZIP_NAME $USER@$HOST:$TARGET
-        scp -o StrictHostKeyChecking=no vemysite.zip $USER@$HOST:$TARGET
-    
+
         # # Execute commands on EC2 instance
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
@@ -65,18 +63,33 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.EC2 }}
         HOST: ${{ secrets.HOST }}
         USER: ${{ secrets.USER }}
+        CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
+        
+        TYPE: ${{ secrets.TYPE }}
+        PROJECT_ID: ${{ secrets.PROJECT_ID }}
+        PRIVATE_KEY_ID: ${{ secrets.PRIVATE_KEY_ID }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        AUTH_URI: ${{ secrets.AUTH_URI }}
+        TOKEN_URI: ${{ secrets.TOKEN_URI }}
+        AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.AUTH_PROVIDER_X509_CERT_URL }}
+        CLIENT_X509_CERT_URL: ${{ secrets.CLIENT_X509_CERT_URL }}
+        UNIVERSE_DOMAIN: ${{ secrets.UNIVERSE_DOMAIN }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
       run: |
         ssh -o StrictHostKeyChecking=no $USER@$HOST 'bash -s' <<'ENDSSH'
 
         # Activate virtual environment
-        cd mysite
-        pwd # for consol log
-        source ./vemysite/bin/activate
+        source ./myenv/bin/activate
+        pip install -r requirements.txt
 
-        # Run database migrations
-        python3 manage.py migrate
+        # go to folder
+        cd mysite
+
         # start server, nohup makes sure the server stays running
-        nohup python3 manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1 &
+        python3 manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1 &
 
         ENDSSH
 
